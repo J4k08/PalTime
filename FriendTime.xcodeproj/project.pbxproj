@@ -13,6 +13,12 @@
 		D60B3DBD1E6D71DC0087D9B0 /* FriendTime.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D60B3DBB1E6D71DC0087D9B0 /* FriendTime.xcdatamodeld */; };
 		D60B3DBF1E6D71DC0087D9B0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D60B3DBE1E6D71DC0087D9B0 /* Assets.xcassets */; };
 		D60B3DC21E6D71DC0087D9B0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D60B3DC01E6D71DC0087D9B0 /* LaunchScreen.storyboard */; };
+		D60B3DD21E6D91010087D9B0 /* AddFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60B3DD11E6D91010087D9B0 /* AddFriendViewController.swift */; };
+		D60B3E211E72FA580087D9B0 /* DatabaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60B3E201E72FA580087D9B0 /* DatabaseController.swift */; };
+		D60B3E411E730C0F0087D9B0 /* Meeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60B3E3D1E730C0F0087D9B0 /* Meeting.swift */; };
+		D60B3E421E730C0F0087D9B0 /* Meeting+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60B3E3E1E730C0F0087D9B0 /* Meeting+CoreDataProperties.swift */; };
+		D60B3E4A1E730D800087D9B0 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60B3E481E730D800087D9B0 /* Friend.swift */; };
+		D60B3E4B1E730D800087D9B0 /* Friend+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60B3E491E730D800087D9B0 /* Friend+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +30,12 @@
 		D60B3DBE1E6D71DC0087D9B0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D60B3DC11E6D71DC0087D9B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D60B3DC31E6D71DC0087D9B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D60B3DD11E6D91010087D9B0 /* AddFriendViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFriendViewController.swift; sourceTree = "<group>"; };
+		D60B3E201E72FA580087D9B0 /* DatabaseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseController.swift; sourceTree = "<group>"; };
+		D60B3E3D1E730C0F0087D9B0 /* Meeting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meeting.swift; sourceTree = "<group>"; };
+		D60B3E3E1E730C0F0087D9B0 /* Meeting+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Meeting+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		D60B3E481E730D800087D9B0 /* Friend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
+		D60B3E491E730D800087D9B0 /* Friend+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Friend+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +68,46 @@
 		D60B3DB31E6D71DC0087D9B0 /* FriendTime */ = {
 			isa = PBXGroup;
 			children = (
-				D60B3DB41E6D71DC0087D9B0 /* AppDelegate.swift */,
-				D60B3DB61E6D71DC0087D9B0 /* ViewController.swift */,
+				D60B3E431E730C680087D9B0 /* Model */,
+				D60B3DC91E6D727F0087D9B0 /* Support Files */,
+				D60B3DD01E6D90E20087D9B0 /* ViewControllers */,
 				D60B3DB81E6D71DC0087D9B0 /* Main.storyboard */,
-				D60B3DBE1E6D71DC0087D9B0 /* Assets.xcassets */,
+				D60B3E201E72FA580087D9B0 /* DatabaseController.swift */,
 				D60B3DC01E6D71DC0087D9B0 /* LaunchScreen.storyboard */,
-				D60B3DC31E6D71DC0087D9B0 /* Info.plist */,
 				D60B3DBB1E6D71DC0087D9B0 /* FriendTime.xcdatamodeld */,
 			);
 			path = FriendTime;
+			sourceTree = "<group>";
+		};
+		D60B3DC91E6D727F0087D9B0 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				D60B3DB41E6D71DC0087D9B0 /* AppDelegate.swift */,
+				D60B3DBE1E6D71DC0087D9B0 /* Assets.xcassets */,
+				D60B3DC31E6D71DC0087D9B0 /* Info.plist */,
+			);
+			name = "Support Files";
+			sourceTree = "<group>";
+		};
+		D60B3DD01E6D90E20087D9B0 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				D60B3DB61E6D71DC0087D9B0 /* ViewController.swift */,
+				D60B3DD11E6D91010087D9B0 /* AddFriendViewController.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		D60B3E431E730C680087D9B0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D60B3E481E730D800087D9B0 /* Friend.swift */,
+				D60B3E491E730D800087D9B0 /* Friend+CoreDataProperties.swift */,
+				D60B3E3D1E730C0F0087D9B0 /* Meeting.swift */,
+				D60B3E3E1E730C0F0087D9B0 /* Meeting+CoreDataProperties.swift */,
+			);
+			name = Model;
+			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,9 +183,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D60B3DD21E6D91010087D9B0 /* AddFriendViewController.swift in Sources */,
+				D60B3E4A1E730D800087D9B0 /* Friend.swift in Sources */,
+				D60B3E4B1E730D800087D9B0 /* Friend+CoreDataProperties.swift in Sources */,
 				D60B3DB71E6D71DC0087D9B0 /* ViewController.swift in Sources */,
+				D60B3E411E730C0F0087D9B0 /* Meeting.swift in Sources */,
 				D60B3DB51E6D71DC0087D9B0 /* AppDelegate.swift in Sources */,
+				D60B3E421E730C0F0087D9B0 /* Meeting+CoreDataProperties.swift in Sources */,
 				D60B3DBD1E6D71DC0087D9B0 /* FriendTime.xcdatamodeld in Sources */,
+				D60B3E211E72FA580087D9B0 /* DatabaseController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,6 +353,7 @@
 				D60B3DC81E6D71DC0087D9B0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
