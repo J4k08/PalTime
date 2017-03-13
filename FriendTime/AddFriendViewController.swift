@@ -70,16 +70,7 @@ class AddFriendViewController: UIViewController, UIImagePickerControllerDelegate
         picker.dismiss(animated: true, completion: nil)
     }
     
-    func imagePath() -> String {
-        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-        if let documentsDirectory = paths.first {
-            
-            return documentsDirectory.appending("/\(fullNameOfPerson).png")
-        
-        }else {
-            fatalError("No documents directory :(((")
-        }
-    }
+    
     
     @IBAction func addFriend(_ sender: Any) {
         
@@ -106,7 +97,7 @@ class AddFriendViewController: UIViewController, UIImagePickerControllerDelegate
                 
                 if let data = UIImagePNGRepresentation(profilePicture.image!) {
                     do {
-                        let url = URL(fileURLWithPath: imagePath())
+                        let url = URL(fileURLWithPath: CameraController.imagePath(nameOfImage: fullNameOfPerson))
                         try data.write(to: url)
                         
                         print(url);
@@ -119,9 +110,11 @@ class AddFriendViewController: UIViewController, UIImagePickerControllerDelegate
                 friend.firstName = firstNameTextField.text;
                 friend.surName = surNameTextField.text;
                 DatabaseController.saveContext()
+                saveNotice(wasAdded: true)
                 print("\(fullNameOfPerson) was created and saved!")
             }
             else {
+                saveNotice(wasAdded: false)
                 print("Friend already exists")
             }
             
@@ -129,6 +122,27 @@ class AddFriendViewController: UIViewController, UIImagePickerControllerDelegate
             print("Error with request \(error)")
         }
       }
+    
+    func saveNotice(wasAdded: Bool) {
+        
+        var noticeTitle : String = ""
+        var noticeMessage : String = ""
+        
+        if(wasAdded) {
+            noticeTitle = "Friend added!"
+            noticeMessage = "You've added a friend!"
+        } else {
+            noticeTitle = "Didn't add"
+            noticeMessage = "You've already added this friend!"
+        }
+        
+        let alertController = UIAlertController.init(title: noticeTitle, message: noticeMessage, preferredStyle: .alert)
+        
+        let defaultAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        alertController.addAction(defaultAction)
+        
+        present(alertController, animated: true, completion: nil)
+    }
 
     
 }

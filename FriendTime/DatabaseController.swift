@@ -64,5 +64,29 @@ class DatabaseController {
             }
         }
     }
-
+    
+    class func getAllFriends () -> [Friend]{
+        
+        var arrayOfFriends : [Friend] = []
+        
+        
+        let fetchRequest : NSFetchRequest<Friend> = Friend.fetchRequest()
+        
+        do{
+            let searchResults = try DatabaseController.getContext().fetch(fetchRequest)
+            
+            for friend in searchResults {
+                
+            print(friend.firstName)
+                arrayOfFriends.append(friend)
+            }
+            
+        }
+        catch {
+            print("DatabaseController: Error with request \(error)")
+        }
+        
+        return arrayOfFriends
+        
+    }
 }
