@@ -93,6 +93,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="addFriendButton" destination="myF-b5-rVR" id="mNa-jl-bpq"/>
                         <outlet property="firstNameTextField" destination="pkP-11-u94" id="tz8-kl-fJG"/>
                         <outlet property="profilePicture" destination="qeE-fi-Dqg" id="wqS-B6-fNS"/>
                         <outlet property="surNameTextField" destination="sUQ-NQ-iwi" id="NUc-Px-M1C"/>

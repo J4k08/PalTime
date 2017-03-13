@@ -13,12 +13,15 @@ class AddFriendViewController: UIViewController, UIImagePickerControllerDelegate
    
     @IBOutlet weak var profilePicture: UIImageView!
 
+    @IBOutlet weak var addFriendButton: UIButton!
     @IBOutlet weak var firstNameTextField: UITextField!
     @IBOutlet weak var surNameTextField: UITextField!
     var fullNameOfPerson : String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        addFriendButton.isEnabled = false
         
         
 
@@ -55,6 +58,7 @@ class AddFriendViewController: UIViewController, UIImagePickerControllerDelegate
         
         let image = info[UIImagePickerControllerEditedImage] as! UIImage
         profilePicture.image = image
+        addFriendButton.isEnabled = true
         
        
         picker.dismiss(animated: true, completion: nil)
@@ -79,30 +83,52 @@ class AddFriendViewController: UIViewController, UIImagePickerControllerDelegate
     
     @IBAction func addFriend(_ sender: Any) {
         
-        if let data = UIImagePNGRepresentation(profilePicture.image!) {
-            do {
-                let url = URL(fileURLWithPath: imagePath())
-                try data.write(to: url)
-                
-                print(url);
-            }
-            catch {
-                NSLog("Failed to save image data")
-            }
-            
-        }
-        
-        let friend:Friend = NSEntityDescription.insertNewObject(forEntityName: "friend", into: DatabaseController.persistentContainer.viewContext) as! Friend
-        
-        friend.firstName = firstNameTextField.text;
-        friend.surName = surNameTextField.text;
-        
+        fullNameOfPerson = ("\(firstNameTextField.text!)\(surNameTextField.text!)")
         
         print(fullNameOfPerson)
         
+        
+        let friend:Friend = NSEntityDescription.insertNewObject(forEntityName: "Friend", into: DatabaseController.getContext()) as! Friend
+        
         let fetchRequest : NSFetchRequest<Friend> = Friend.fetchRequest()
         
+        fetchRequest.predicate = NSPredicate(format: "firstName == '\(firstNameTextField.text!)' && surName == '\(surNameTextField.text!)'")
+        print("Predicate: \(fetchRequest.predicate)")
+        
+        do{
+        let searchResults = try DatabaseController.getContext().fetch(fetchRequest)
+            
+            for friend in searchResults {
+                print(" - \(friend)")
+            }
+            
+            if(searchResults.count == 0) {
+                
+                if let data = UIImagePNGRepresentation(profilePicture.image!) {
+                    do {
+                        let url = URL(fileURLWithPath: imagePath())
+                        try data.write(to: url)
+                        
+                        print(url);
+                    }
+                    catch {
+                        NSLog("Failed to save image data")
+                    }
+                    
+                }
+                friend.firstName = firstNameTextField.text;
+                friend.surName = surNameTextField.text;
+                DatabaseController.saveContext()
+                print("\(fullNameOfPerson) was created and saved!")
+            }
+            else {
+                print("Friend already exists")
+            }
+            
+        } catch {
+            print("Error with request \(error)")
         }
+      }
 
     
 }
