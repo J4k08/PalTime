@@ -54,7 +54,9 @@ class TableViewController: UITableViewController {
         
         
         
-        let nameOfPerson = "\(numberOfFriends[indexPath.row].firstName)\(numberOfFriends[indexPath.row].surName)"
+        let nameOfPerson = "\(numberOfFriends[indexPath.row].firstName!)\(numberOfFriends[indexPath.row].surName!)"
+        
+        print(nameOfPerson)
         
         let path = CameraController.imagePath(nameOfImage: nameOfPerson)
         
@@ -107,14 +109,22 @@ class TableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+        if let cell = sender as? CustomTableViewCell{
+            
+            let clickedCell = segue.destination as! FriendViewController
+            
+            clickedCell.firstNameOfFriend = cell.firstNameLabel.text!
+            clickedCell.surNameOfFriend = cell.surNameLabel.text!
+            
+        }
+    
     }
-    */
+    
 
 }

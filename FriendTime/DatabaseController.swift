@@ -69,7 +69,6 @@ class DatabaseController {
         
         var arrayOfFriends : [Friend] = []
         
-        
         let fetchRequest : NSFetchRequest<Friend> = Friend.fetchRequest()
         
         do{
@@ -77,7 +76,7 @@ class DatabaseController {
             
             for friend in searchResults {
                 
-            print(friend.firstName)
+            print(friend.firstName!)
                 arrayOfFriends.append(friend)
             }
             
@@ -87,6 +86,32 @@ class DatabaseController {
         }
         
         return arrayOfFriends
+    }
+    
+    class func getSpecificFriend(firstName : String, surName : String) -> Friend {
         
+        let friend:Friend = NSEntityDescription.insertNewObject(forEntityName: "Friend", into: DatabaseController.getContext()) as! Friend
+        
+        
+        let fetchRequest : NSFetchRequest<Friend> = Friend.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "firstName == '\(firstName)' && surName == '\(surName)'")
+        
+        do {
+        let searchResults = try DatabaseController.getContext().fetch(fetchRequest)
+        
+            if(searchResults.count == 1) {
+                friend.firstName = searchResults[0].firstName
+                friend.surName = searchResults[0].surName
+                friend.timeSinceMeet = searchResults[0].timeSinceMeet
+                print(friend.firstName!)
+            } else {
+                print("No friends found")
+            }
+        }
+        catch {
+         print("errror!!!")
+        }
+        
+        return friend
     }
 }

@@ -74,10 +74,12 @@ class AddFriendViewController: UIViewController, UIImagePickerControllerDelegate
     
     @IBAction func addFriend(_ sender: Any) {
         
+        let date = Date()
+        let time : Double =  date.timeIntervalSinceReferenceDate
+        
         fullNameOfPerson = ("\(firstNameTextField.text!)\(surNameTextField.text!)")
         
         print(fullNameOfPerson)
-        
         
         let friend:Friend = NSEntityDescription.insertNewObject(forEntityName: "Friend", into: DatabaseController.getContext()) as! Friend
         
@@ -109,6 +111,7 @@ class AddFriendViewController: UIViewController, UIImagePickerControllerDelegate
                 }
                 friend.firstName = firstNameTextField.text;
                 friend.surName = surNameTextField.text;
+                friend.timeSinceMeet = time
                 DatabaseController.saveContext()
                 saveNotice(wasAdded: true)
                 print("\(fullNameOfPerson) was created and saved!")

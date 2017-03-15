@@ -2,7 +2,7 @@
 //  Friend+CoreDataProperties.swift
 //  FriendTime
 //
-//  Created by Jakob Haglöf on 2017-03-10.
+//  Created by Jakob Haglöf on 2017-03-15.
 //  Copyright © 2017 Jakob Haglöf. All rights reserved.
 //
 
@@ -18,6 +18,7 @@ extension Friend {
 
     @NSManaged public var firstName: String?
     @NSManaged public var surName: String?
+    @NSManaged public var timeSinceMeet: Double
     @NSManaged public var relationship: NSSet?
 
 }
