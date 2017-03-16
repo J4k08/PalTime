@@ -57,8 +57,6 @@ class DatabaseController {
             do {
                 try context.save()
             } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
                 let nserror = error as NSError
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
@@ -74,12 +72,17 @@ class DatabaseController {
         do{
             let searchResults = try DatabaseController.getContext().fetch(fetchRequest)
             
-            for friend in searchResults {
+            if(searchResults.count > 0){
                 
-            print(friend.firstName!)
-                arrayOfFriends.append(friend)
+                for friend in searchResults {
+                    
+                    print(friend.firstName!)
+                    arrayOfFriends.append(friend)
+                }
+                
+            }else {
+                print("No friends in Datacore")
             }
-            
         }
         catch {
             print("DatabaseController: Error with request \(error)")
@@ -88,30 +91,64 @@ class DatabaseController {
         return arrayOfFriends
     }
     
-    class func getSpecificFriend(firstName : String, surName : String) -> Friend {
+    class func getSpecificFriend(firstName : String, surName : String) -> Friend? {
         
-        let friend:Friend = NSEntityDescription.insertNewObject(forEntityName: "Friend", into: DatabaseController.getContext()) as! Friend
+        //        let friend:Friend = NSEntityDescription.insertNewObject(forEntityName: "Friend", into: DatabaseController.getContext()) as! Friend
         
         
         let fetchRequest : NSFetchRequest<Friend> = Friend.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "firstName == '\(firstName)' && surName == '\(surName)'")
         
         do {
-        let searchResults = try DatabaseController.getContext().fetch(fetchRequest)
-        
+            let searchResults = try DatabaseController.getContext().fetch(fetchRequest)
+            
             if(searchResults.count == 1) {
-                friend.firstName = searchResults[0].firstName
-                friend.surName = searchResults[0].surName
-                friend.timeSinceMeet = searchResults[0].timeSinceMeet
-                print(friend.firstName!)
+                
+                return searchResults[0]
+                
+                print(searchResults[0].firstName!)
+                
             } else {
                 print("No friends found")
             }
         }
         catch {
-         print("errror!!!")
+            print("errror!!!")
         }
         
-        return friend
+        return nil
+    }
+    
+    class func removeFriend(firstName : String, surName : String) {
+        
+        
+        let fetchRequest : NSFetchRequest<Friend> = Friend.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "firstName == '\(firstName)' && surName == '\(surName)'")
+        do{
+            let searchResults = try DatabaseController.getContext().fetch(fetchRequest)
+            
+            if(searchResults.count == 1) {
+                
+                print(searchResults[0])
+                
+                DatabaseController.getContext().delete(searchResults[0])
+                DatabaseController.saveContext()
+                
+            } else {
+                print("No Friend-Object found")
+            }
+            
+        }catch {
+            print("Error with request \(error)")
+        }
+        
+    }
+    
+    class func updateTime(friend : Friend) {
+        
+        let currentTime = Date()
+        
+        friend.timeSinceMeet = currentTime.timeIntervalSinceReferenceDate
+        DatabaseController.saveContext()        
     }
 }

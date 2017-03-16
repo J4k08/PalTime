@@ -81,12 +81,11 @@ class AddFriendViewController: UIViewController, UIImagePickerControllerDelegate
         
         print(fullNameOfPerson)
         
-        let friend:Friend = NSEntityDescription.insertNewObject(forEntityName: "Friend", into: DatabaseController.getContext()) as! Friend
-        
         let fetchRequest : NSFetchRequest<Friend> = Friend.fetchRequest()
         
         fetchRequest.predicate = NSPredicate(format: "firstName == '\(firstNameTextField.text!)' && surName == '\(surNameTextField.text!)'")
         print("Predicate: \(fetchRequest.predicate)")
+    
         
         do{
         let searchResults = try DatabaseController.getContext().fetch(fetchRequest)
@@ -109,6 +108,7 @@ class AddFriendViewController: UIViewController, UIImagePickerControllerDelegate
                     }
                     
                 }
+                let friend:Friend = NSEntityDescription.insertNewObject(forEntityName: "Friend", into: DatabaseController.getContext()) as! Friend
                 friend.firstName = firstNameTextField.text;
                 friend.surName = surNameTextField.text;
                 friend.timeSinceMeet = time

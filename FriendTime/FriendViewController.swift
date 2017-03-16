@@ -26,9 +26,12 @@ class FriendViewController: UIViewController {
     var hours = 0
     var days = 0
     var timer = Timer()
+    var friend : Friend?
+    var timeSinceMeet : Double = 0
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
+        
+        super.viewWillAppear(animated)
         
         let nameOfPerson = ("\(firstNameOfFriend!)\(surNameOfFriend!)")
         let path = CameraController.imagePath(nameOfImage: nameOfPerson)
@@ -37,11 +40,8 @@ class FriendViewController: UIViewController {
         firstNameLabel.text = firstNameOfFriend!
         surNameLabel.text = surNameOfFriend!
         
-        let friend : Friend = DatabaseController.getSpecificFriend(firstName: firstNameOfFriend!, surName: surNameOfFriend!)
+        setupViewController()
         
-        let time = Date()
-        var timeSinceMeet : Double = time.timeIntervalSinceReferenceDate
-        timeSinceMeet = timeSinceMeet - friend.timeSinceMeet
         
         print(Int(timeSinceMeet))
         
@@ -87,6 +87,8 @@ class FriendViewController: UIViewController {
         }
         
         
+        
+        
     }
     
     func setTime() {
@@ -95,13 +97,29 @@ class FriendViewController: UIViewController {
         minutesLabel.text = String(minutes)
         hoursLabel.text = String(hours)
         daysLabel.text = String(days)
+    }
+    
+    @IBAction func resetTime(_ sender: Any) {
         
+        DatabaseController.updateTime(friend: friend!)
+        setupViewController()
+        setTime()
         
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+    }
+    
+    func setupViewController() {
+        
+        let friend : Friend = DatabaseController.getSpecificFriend(firstName: firstNameOfFriend!, surName: surNameOfFriend!)!
+        
+        let time = Date()
+        var timeSinceMeet : Double = time.timeIntervalSinceReferenceDate
+        timeSinceMeet = timeSinceMeet - friend.timeSinceMeet
+        
     }
     
 
