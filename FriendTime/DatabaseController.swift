@@ -93,9 +93,6 @@ class DatabaseController {
     
     class func getSpecificFriend(firstName : String, surName : String) -> Friend? {
         
-        //        let friend:Friend = NSEntityDescription.insertNewObject(forEntityName: "Friend", into: DatabaseController.getContext()) as! Friend
-        
-        
         let fetchRequest : NSFetchRequest<Friend> = Friend.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "firstName == '\(firstName)' && surName == '\(surName)'")
         
@@ -105,8 +102,6 @@ class DatabaseController {
             if(searchResults.count == 1) {
                 
                 return searchResults[0]
-                
-                print(searchResults[0].firstName!)
                 
             } else {
                 print("No friends found")
@@ -150,5 +145,20 @@ class DatabaseController {
         
         friend.timeSinceMeet = currentTime.timeIntervalSinceReferenceDate
         DatabaseController.saveContext()        
+    }
+    
+    class func getAllMeetings(friend : Friend) -> [Meeting] {
+      
+        var arrayOfMeetings : [Meeting] = []
+        
+        for item in friend.relationship! {
+            
+            arrayOfMeetings.append(item as! Meeting)
+            
+            print(item)
+        }
+        
+        return arrayOfMeetings
+        
     }
 }

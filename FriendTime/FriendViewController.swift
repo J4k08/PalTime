@@ -7,27 +7,33 @@
 //
 
 import UIKit
+import CoreData
 
-class FriendViewController: UIViewController {
+class FriendViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    @IBOutlet weak var meetingTableView: UITableView!
     var firstNameOfFriend : String?
     var surNameOfFriend : String?
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var firstNameLabel: UILabel!
     @IBOutlet weak var surNameLabel: UILabel!
     
+    
+    @IBOutlet weak var meetingDescription: UITextField!
     @IBOutlet weak var daysLabel: UILabel!
     @IBOutlet weak var hoursLabel: UILabel!
     @IBOutlet weak var minutesLabel: UILabel!
     @IBOutlet weak var secondsLabel: UILabel!
+    
     
     var seconds = 0
     var minutes = 0
     var hours = 0
     var days = 0
     var timer = Timer()
-    var friend : Friend?
     var timeSinceMeet : Double = 0
+    
+    var amountOfMeetings : [Meeting] = []
     
     override func viewWillAppear(_ animated: Bool) {
         
@@ -35,6 +41,7 @@ class FriendViewController: UIViewController {
         
         let nameOfPerson = ("\(firstNameOfFriend!)\(surNameOfFriend!)")
         let path = CameraController.imagePath(nameOfImage: nameOfPerson)
+    
         
         profileImage.image = CameraController.getPicture(imagePath: path)
         firstNameLabel.text = firstNameOfFriend!
@@ -83,11 +90,7 @@ class FriendViewController: UIViewController {
                     daysLabel.text = String(days)
                 }
             }
-            
         }
-        
-        
-        
         
     }
     
@@ -101,9 +104,34 @@ class FriendViewController: UIViewController {
     
     @IBAction func resetTime(_ sender: Any) {
         
-        DatabaseController.updateTime(friend: friend!)
+        let friend : Friend = DatabaseController.getSpecificFriend(firstName: firstNameOfFriend!, surName: surNameOfFriend!)!
+       
+        DatabaseController.updateTime(friend : friend)
+        
         setupViewController()
-        setTime()
+        
+        addMeeting()
+        
+    }
+    
+    func addMeeting() {
+        
+        let friend : Friend = DatabaseController.getSpecificFriend(firstName: firstNameOfFriend!, surName: surNameOfFriend!)!
+        
+        let meet:Meeting = NSEntityDescription.insertNewObject(forEntityName: "Meeting", into: DatabaseController.getContext()) as! Meeting
+        
+        meet.type = meetingDescription.text
+        
+        friend.addToRelationship(meet)
+        
+        print(friend.relationship!)
+        meetNotice()
+        
+        DatabaseController.saveContext()
+        
+        amountOfMeetings.append(meet)
+        
+        self.meetingTableView.reloadData()
         
     }
     
@@ -116,11 +144,46 @@ class FriendViewController: UIViewController {
         
         let friend : Friend = DatabaseController.getSpecificFriend(firstName: firstNameOfFriend!, surName: surNameOfFriend!)!
         
+        amountOfMeetings = DatabaseController.getAllMeetings(friend: friend)
         let time = Date()
-        var timeSinceMeet : Double = time.timeIntervalSinceReferenceDate
+        timeSinceMeet = time.timeIntervalSinceReferenceDate
         timeSinceMeet = timeSinceMeet - friend.timeSinceMeet
+        
+        (days, hours, minutes, seconds) = TimerHelper.convertFromSeconds(seconds: Int(timeSinceMeet))
+        
+        setTime()
         
     }
     
-
+    func meetNotice() {
+        
+        let noticeTitle : String = "Meeting saved!"
+        let noticeMessage : String = "Saved as: \(meetingDescription.text!)"
+        
+        let alertController = UIAlertController.init(title: noticeTitle, message: noticeMessage, preferredStyle: .alert)
+        
+        let defaultAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        alertController.addAction(defaultAction)
+        
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return amountOfMeetings.count
+    }
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        
+        cell.textLabel?.text = amountOfMeetings[indexPath.row].type!
+        return cell
+    
+    }
 }
