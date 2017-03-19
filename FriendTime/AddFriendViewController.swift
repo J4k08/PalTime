@@ -10,20 +10,20 @@ import UIKit
 import CoreData
 
 class AddFriendViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
-   
+    
     @IBOutlet weak var profilePicture: UIImageView!
     @IBOutlet weak var addFriendButton: UIButton!
     @IBOutlet weak var firstNameTextField: UITextField!
     @IBOutlet weak var surNameTextField: UITextField!
     var fullNameOfPerson : String = ""
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         addFriendButton.isEnabled = false
         
     }
-
+    
     
     @IBAction func cameraButtonAction(_ sender: UIButton) {
         
@@ -52,10 +52,10 @@ class AddFriendViewController: UIViewController, UIImagePickerControllerDelegate
         let image = info[UIImagePickerControllerEditedImage] as! UIImage
         profilePicture.image = image
         addFriendButton.isEnabled = true
-               
+        
         picker.dismiss(animated: true, completion: nil)
     }
-
+    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
@@ -73,52 +73,52 @@ class AddFriendViewController: UIViewController, UIImagePickerControllerDelegate
             saveNotice(wasAdded: false, hasName: false)
         } else {
             
-        print(fullNameOfPerson)
-        
-        let fetchRequest : NSFetchRequest<Friend> = Friend.fetchRequest()
-        
-        fetchRequest.predicate = NSPredicate(format: "firstName == '\(firstNameTextField.text!)' && surName == '\(surNameTextField.text!)'")
-        print("Predicate: \(fetchRequest.predicate)")
-    
-        
-        do{
-        let searchResults = try DatabaseController.getContext().fetch(fetchRequest)
+            print(fullNameOfPerson)
             
-            for friend in searchResults {
-                print(" - \(friend)")
-            }
+            let fetchRequest : NSFetchRequest<Friend> = Friend.fetchRequest()
             
-            if(searchResults.count == 0) {
+            fetchRequest.predicate = NSPredicate(format: "firstName == '\(firstNameTextField.text!)' && surName == '\(surNameTextField.text!)'")
+            print("Predicate: \(fetchRequest.predicate)")
+            
+            
+            do{
+                let searchResults = try DatabaseController.getContext().fetch(fetchRequest)
                 
-                if let data = UIImagePNGRepresentation(profilePicture.image!) {
-                    do {
-                        let url = URL(fileURLWithPath: CameraController.imagePath(nameOfImage: fullNameOfPerson))
-                        try data.write(to: url)
-                        
-                        print(url);
-                    }
-                    catch {
-                        NSLog("Failed to save image data")
-                    }
-                    
+                for friend in searchResults {
+                    print(" - \(friend)")
                 }
-                let friend:Friend = NSEntityDescription.insertNewObject(forEntityName: "Friend", into: DatabaseController.getContext()) as! Friend
-                friend.firstName = firstNameTextField.text;
-                friend.surName = surNameTextField.text;
-                friend.timeSinceMeet = time
-                DatabaseController.saveContext()
-                saveNotice(wasAdded: true, hasName: true)
-                print("\(fullNameOfPerson) was created and saved!")
+                
+                if(searchResults.count == 0) {
+                    
+                    if let data = UIImagePNGRepresentation(profilePicture.image!) {
+                        do {
+                            let url = URL(fileURLWithPath: CameraController.imagePath(nameOfImage: fullNameOfPerson))
+                            try data.write(to: url)
+                            
+                            print(url);
+                        }
+                        catch {
+                            NSLog("Failed to save image data")
+                        }
+                        
+                    }
+                    let friend:Friend = NSEntityDescription.insertNewObject(forEntityName: "Friend", into: DatabaseController.getContext()) as! Friend
+                    friend.firstName = firstNameTextField.text;
+                    friend.surName = surNameTextField.text;
+                    friend.timeSinceMeet = time
+                    DatabaseController.saveContext()
+                    saveNotice(wasAdded: true, hasName: true)
+                    print("\(fullNameOfPerson) was created and saved!")
+                }
+                else {
+                    saveNotice(wasAdded: false, hasName: true)
+                    print("Friend already exists")
+                }
+                
+            } catch {
+                print("Error with request \(error)")
             }
-            else {
-                saveNotice(wasAdded: false, hasName: true)
-                print("Friend already exists")
-            }
-            
-        } catch {
-            print("Error with request \(error)")
         }
-      }
     }
     
     func saveNotice(wasAdded: Bool, hasName : Bool) {
@@ -132,7 +132,7 @@ class AddFriendViewController: UIViewController, UIImagePickerControllerDelegate
             
             
         } else if(!hasName) {
-         
+            
             noticeTitle = "Didn't add"
             noticeMessage = "You need to add a name!"
             
@@ -148,7 +148,7 @@ class AddFriendViewController: UIViewController, UIImagePickerControllerDelegate
         
         present(alertController, animated: true, completion: nil)
     }
-
+    
     
 }
 

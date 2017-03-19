@@ -40,7 +40,7 @@ class FriendViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         let nameOfPerson = ("\(firstNameOfFriend!)\(surNameOfFriend!)")
         let path = CameraController.imagePath(nameOfImage: nameOfPerson)
-    
+        
         
         profileImage.image = CameraController.getPicture(imagePath: path)
         firstNameLabel.text = firstNameOfFriend!
@@ -108,13 +108,13 @@ class FriendViewController: UIViewController, UITableViewDelegate, UITableViewDa
             meetNotice(noticeTitle: "No meeting", noticeMessage: "Please type in what you two did!")
             
         } else {
-        let friend : Friend = DatabaseController.getSpecificFriend(firstName: firstNameOfFriend!, surName: surNameOfFriend!)!
-       
-        DatabaseController.updateTime(friend : friend)
-        
-        setupViewController()
-        
-        addMeeting()
+            let friend : Friend = DatabaseController.getSpecificFriend(firstName: firstNameOfFriend!, surName: surNameOfFriend!)!
+            
+            DatabaseController.updateTime(friend : friend)
+            
+            setupViewController()
+            
+            addMeeting()
         }
         
     }
@@ -186,6 +186,6 @@ class FriendViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         cell.textLabel?.text = amountOfMeetings[indexPath.row].type!
         return cell
-    
+        
     }
 }
