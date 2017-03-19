@@ -12,7 +12,6 @@ import CoreData
 class AddFriendViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
    
     @IBOutlet weak var profilePicture: UIImageView!
-
     @IBOutlet weak var addFriendButton: UIButton!
     @IBOutlet weak var firstNameTextField: UITextField!
     @IBOutlet weak var surNameTextField: UITextField!
@@ -79,6 +78,10 @@ class AddFriendViewController: UIViewController, UIImagePickerControllerDelegate
         
         fullNameOfPerson = ("\(firstNameTextField.text!)\(surNameTextField.text!)")
         
+        if(fullNameOfPerson == "") {
+            saveNotice(wasAdded: false, hasName: false)
+        } else {
+            
         print(fullNameOfPerson)
         
         let fetchRequest : NSFetchRequest<Friend> = Friend.fetchRequest()
@@ -113,11 +116,11 @@ class AddFriendViewController: UIViewController, UIImagePickerControllerDelegate
                 friend.surName = surNameTextField.text;
                 friend.timeSinceMeet = time
                 DatabaseController.saveContext()
-                saveNotice(wasAdded: true)
+                saveNotice(wasAdded: true, hasName: true)
                 print("\(fullNameOfPerson) was created and saved!")
             }
             else {
-                saveNotice(wasAdded: false)
+                saveNotice(wasAdded: false, hasName: true)
                 print("Friend already exists")
             }
             
@@ -125,16 +128,24 @@ class AddFriendViewController: UIViewController, UIImagePickerControllerDelegate
             print("Error with request \(error)")
         }
       }
+    }
     
-    func saveNotice(wasAdded: Bool) {
+    func saveNotice(wasAdded: Bool, hasName : Bool) {
         
         var noticeTitle : String = ""
         var noticeMessage : String = ""
         
-        if(wasAdded) {
+        if(wasAdded && hasName) {
             noticeTitle = "Friend added!"
             noticeMessage = "You've added a friend!"
-        } else {
+            
+            
+        } else if(!hasName) {
+         
+            noticeTitle = "Didn't add"
+            noticeMessage = "You need to add a name!"
+            
+        }else {
             noticeTitle = "Didn't add"
             noticeMessage = "You've already added this friend!"
         }

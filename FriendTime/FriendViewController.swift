@@ -25,7 +25,6 @@ class FriendViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var minutesLabel: UILabel!
     @IBOutlet weak var secondsLabel: UILabel!
     
-    
     var seconds = 0
     var minutes = 0
     var hours = 0
@@ -104,6 +103,11 @@ class FriendViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     @IBAction func resetTime(_ sender: Any) {
         
+        if(meetingDescription.text == "") {
+            
+            meetNotice(noticeTitle: "No meeting", noticeMessage: "Please type in what you two did!")
+            
+        } else {
         let friend : Friend = DatabaseController.getSpecificFriend(firstName: firstNameOfFriend!, surName: surNameOfFriend!)!
        
         DatabaseController.updateTime(friend : friend)
@@ -111,6 +115,7 @@ class FriendViewController: UIViewController, UITableViewDelegate, UITableViewDa
         setupViewController()
         
         addMeeting()
+        }
         
     }
     
@@ -125,7 +130,7 @@ class FriendViewController: UIViewController, UITableViewDelegate, UITableViewDa
         friend.addToRelationship(meet)
         
         print(friend.relationship!)
-        meetNotice()
+        meetNotice(noticeTitle: "Saved as:", noticeMessage: "Saved as: \(meetingDescription.text!)")
         
         DatabaseController.saveContext()
         
@@ -155,10 +160,7 @@ class FriendViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
     }
     
-    func meetNotice() {
-        
-        let noticeTitle : String = "Meeting saved!"
-        let noticeMessage : String = "Saved as: \(meetingDescription.text!)"
+    func meetNotice(noticeTitle : String, noticeMessage : String) {
         
         let alertController = UIAlertController.init(title: noticeTitle, message: noticeMessage, preferredStyle: .alert)
         
