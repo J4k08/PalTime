@@ -22,14 +22,8 @@ class AddFriendViewController: UIViewController, UIImagePickerControllerDelegate
         
         addFriendButton.isEnabled = false
         
-        
-
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     @IBAction func cameraButtonAction(_ sender: UIButton) {
         
@@ -58,12 +52,9 @@ class AddFriendViewController: UIViewController, UIImagePickerControllerDelegate
         let image = info[UIImagePickerControllerEditedImage] as! UIImage
         profilePicture.image = image
         addFriendButton.isEnabled = true
-        
-       
+               
         picker.dismiss(animated: true, completion: nil)
     }
-
-    
 
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
