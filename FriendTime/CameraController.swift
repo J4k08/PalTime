@@ -28,7 +28,7 @@ class CameraController {
             NSLog("No image was found.")
         }
         return img
-    
+        
     }
     
     class func imagePath(nameOfImage : String) -> String {
