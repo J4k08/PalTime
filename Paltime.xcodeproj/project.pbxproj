@@ -27,7 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		D60B3DB11E6D71DC0087D9B0 /* FriendTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FriendTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D60B3DB11E6D71DC0087D9B0 /* Paltime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Paltime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D60B3DB41E6D71DC0087D9B0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D60B3DB61E6D71DC0087D9B0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		D60B3DB91E6D71DC0087D9B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -70,7 +70,7 @@
 		D60B3DB21E6D71DC0087D9B0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D60B3DB11E6D71DC0087D9B0 /* FriendTime.app */,
+				D60B3DB11E6D71DC0087D9B0 /* Paltime.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -128,9 +128,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D60B3DB01E6D71DC0087D9B0 /* FriendTime */ = {
+		D60B3DB01E6D71DC0087D9B0 /* Paltime */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D60B3DC61E6D71DC0087D9B0 /* Build configuration list for PBXNativeTarget "FriendTime" */;
+			buildConfigurationList = D60B3DC61E6D71DC0087D9B0 /* Build configuration list for PBXNativeTarget "Paltime" */;
 			buildPhases = (
 				D60B3DAD1E6D71DC0087D9B0 /* Sources */,
 				D60B3DAE1E6D71DC0087D9B0 /* Frameworks */,
@@ -140,9 +140,9 @@
 			);
 			dependencies = (
 			);
-			name = FriendTime;
+			name = Paltime;
 			productName = FriendTime;
-			productReference = D60B3DB11E6D71DC0087D9B0 /* FriendTime.app */;
+			productReference = D60B3DB11E6D71DC0087D9B0 /* Paltime.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -162,7 +162,7 @@
 					};
 				};
 			};
-			buildConfigurationList = D60B3DAC1E6D71DC0087D9B0 /* Build configuration list for PBXProject "FriendTime" */;
+			buildConfigurationList = D60B3DAC1E6D71DC0087D9B0 /* Build configuration list for PBXProject "Paltime" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -175,7 +175,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D60B3DB01E6D71DC0087D9B0 /* FriendTime */,
+				D60B3DB01E6D71DC0087D9B0 /* Paltime */,
 			);
 		};
 /* End PBXProject section */
@@ -357,7 +357,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D60B3DAC1E6D71DC0087D9B0 /* Build configuration list for PBXProject "FriendTime" */ = {
+		D60B3DAC1E6D71DC0087D9B0 /* Build configuration list for PBXProject "Paltime" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D60B3DC41E6D71DC0087D9B0 /* Debug */,
@@ -366,7 +366,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D60B3DC61E6D71DC0087D9B0 /* Build configuration list for PBXNativeTarget "FriendTime" */ = {
+		D60B3DC61E6D71DC0087D9B0 /* Build configuration list for PBXNativeTarget "Paltime" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D60B3DC71E6D71DC0087D9B0 /* Debug */,

@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D60B3DB01E6D71DC0087D9B0"
-               BuildableName = "FriendTime.app"
-               BlueprintName = "FriendTime"
-               ReferencedContainer = "container:FriendTime.xcodeproj">
+               BuildableName = "Paltime.app"
+               BlueprintName = "Paltime"
+               ReferencedContainer = "container:Paltime.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D60B3DB01E6D71DC0087D9B0"
-            BuildableName = "FriendTime.app"
-            BlueprintName = "FriendTime"
-            ReferencedContainer = "container:FriendTime.xcodeproj">
+            BuildableName = "Paltime.app"
+            BlueprintName = "Paltime"
+            ReferencedContainer = "container:Paltime.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -56,9 +56,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D60B3DB01E6D71DC0087D9B0"
-            BuildableName = "FriendTime.app"
-            BlueprintName = "FriendTime"
-            ReferencedContainer = "container:FriendTime.xcodeproj">
+            BuildableName = "Paltime.app"
+            BlueprintName = "Paltime"
+            ReferencedContainer = "container:Paltime.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -75,9 +75,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D60B3DB01E6D71DC0087D9B0"
-            BuildableName = "FriendTime.app"
-            BlueprintName = "FriendTime"
-            ReferencedContainer = "container:FriendTime.xcodeproj">
+            BuildableName = "Paltime.app"
+            BlueprintName = "Paltime"
+            ReferencedContainer = "container:Paltime.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
